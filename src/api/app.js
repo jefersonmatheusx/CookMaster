@@ -3,6 +3,7 @@ const app = express()
 const { connection } = require('./connection')
 const {
   UsersRoute,
+  LoginRoute
 } = require('./routes')
 
 require('dotenv').config()
@@ -21,7 +22,7 @@ app.get('/', (request, response) => {
 // Não remover esse end-point, ele é necessário para o avaliador
 
 app.use('/user', UsersRoute)
-module.exports = app;
+app.use('/login', LoginRoute)
 
 //Model
 const User = require('./models/UsersModel')
