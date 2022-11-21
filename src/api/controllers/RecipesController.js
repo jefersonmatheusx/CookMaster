@@ -59,9 +59,28 @@ const updateRecipe = async (req, res) => {
   }
 }
 
+const deleteRecipe = async (req, res) => {
+  const { id } = req.params
+  const { userId, userRole } = req
+  try {
+    const deletedRecipe = await recipeService.deleteRecipe(
+      id,
+      userId,
+      userRole
+    )
+
+    res.status(StatusCode.NO_CONTENT).json(deletedRecipe)
+  } catch (error) {
+    res
+      .status(error.code || StatusCode.INVALID_FIELD)
+      .json({ msg: error.message })
+  }
+}
+
 module.exports = {
   createRecipe,
   getRecipes,
   getRecipe,
-  updateRecipe
+  updateRecipe,
+  deleteRecipe
 }

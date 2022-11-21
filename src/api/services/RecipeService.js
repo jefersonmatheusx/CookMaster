@@ -26,12 +26,28 @@ const updateRecipe = async (id, recipeObj, userIdReq, userRole) => {
     error.name = 'FORBIDEN'
     throw error
   }
-  return recipeModel.update(id, recipeObj)
+  return recipeModel.updateOne(id, recipeObj)
+}
+const deleteRecipe = async (id, userIdReq, userRole) => {
+  const hasChecked = await checkPermissions(
+    recipeModel,
+    id,
+    userIdReq,
+    userRole
+  )
+  if (!hasChecked) {
+    const error = new Error('Forbiden: not allowed to do this action')
+    error.code = 403
+    error.name = 'FORBIDEN'
+    throw error
+  }
+  return recipeModel.deleteOne(id)
 }
 
 module.exports = {
   createRecipe,
   getRecipes,
   getRecipe,
-  updateRecipe
+  updateRecipe,
+  deleteRecipe
 }

@@ -21,7 +21,7 @@ const getById = async (id) => {
   return recipe
 }
 
-const update = async (id, obj) => {
+const updateOne = async (id, obj) => {
   return Recipe.findOneAndUpdate(
     { _id: id },
     { $set: obj },
@@ -31,10 +31,15 @@ const update = async (id, obj) => {
   )
 }
 
+const deleteOne = async (id) => {
+  return Recipe.deleteOne({ _id: id })
+}
+
 module.exports = {
   create,
   getOne,
   getRecipes,
   getById,
-  update
+  updateOne,
+  deleteOne
 }
