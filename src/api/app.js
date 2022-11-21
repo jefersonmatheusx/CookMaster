@@ -3,6 +3,7 @@ const app = express()
 const { connection } = require('./connection')
 const {
   UsersRoute,
+  RecipesRoute,
   LoginRoute
 } = require('./routes')
 
@@ -23,6 +24,7 @@ app.get('/', (request, response) => {
 
 app.use('/user', UsersRoute)
 app.use('/login', LoginRoute)
+app.use('/recipes', RecipesRoute)
 
 //Model
 const User = require('./models/UsersModel')
