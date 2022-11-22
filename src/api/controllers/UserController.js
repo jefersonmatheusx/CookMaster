@@ -7,7 +7,8 @@ const createUser = async (req, res) => {
     const newUser = await userService.createUser({
       name,
       email,
-      password
+      password,
+      role: 'user'
     })
 
     return res.status(StatusCode.CREATED).json(newUser)
@@ -34,7 +35,14 @@ const getUser = async (req, res) => {
   }
 }
 
+const createAdmin = async (req, res) => {
+  const user = req.body
+  const result = await userService.createUser({ ...user, role: 'admin' })
+  res.status(StatusCode.CREATED).json({ user: result })
+}
+
 module.exports = {
   createUser,
-  getUser
+  getUser,
+  createAdmin
 }

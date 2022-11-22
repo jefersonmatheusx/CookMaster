@@ -1,12 +1,8 @@
 const express = require('express')
 const app = express()
 const { connection } = require('./connection')
-const {
-  UsersRoute,
-  RecipesRoute,
-  LoginRoute
-} = require('./routes')
-
+const { UsersRoute, RecipesRoute, LoginRoute } = require('./routes')
+const path = require('path')
 require('dotenv').config()
 
 app.use(express.json())
@@ -22,11 +18,13 @@ app.get('/', (request, response) => {
 })
 // Não remover esse end-point, ele é necessário para o avaliador
 
+
+
+app.use('/images', express.static(path.join(__dirname, '..', 'uploads')))
+
 app.use('/user', UsersRoute)
 app.use('/login', LoginRoute)
 app.use('/recipes', RecipesRoute)
 
-//Model
-const User = require('./models/UsersModel')
 
 module.exports = app

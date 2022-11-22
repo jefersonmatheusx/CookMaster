@@ -4,12 +4,11 @@ module.exports = (req, res, next) => {
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1]
 
-  if (!token) {
-    console.error('acesso negado')
-    return res
-      .status(StatusCode.INVALID_FIELD)
-      .json({ msg: 'Missing Auth Token!' })
-  }
+  if (!token)
+    return next({
+      status: StatusCode.INVALID_FIELD,
+      message: 'Missing auth token!'
+    })
 
   try {
     const decodedToken = tokenValidator(token)
@@ -17,6 +16,6 @@ module.exports = (req, res, next) => {
     req.userRole = decodedToken.role
     next()
   } catch (error) {
-    res.status(StatusCode.INVALID_FIELD).json({ msg: 'jwt malformed' })
+    return next({ message: 'jwt malformed', status: StatusCode.INVALID_FIELD })
   }
 }

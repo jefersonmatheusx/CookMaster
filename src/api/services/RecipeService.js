@@ -14,33 +14,17 @@ const getRecipe = async (id) => {
 }
 
 const updateRecipe = async (id, recipeObj, userIdReq, userRole) => {
-  const hasChecked = await checkPermissions(
-    recipeModel,
-    id,
-    userIdReq,
-    userRole
-  )
-  if (!hasChecked) {
-    const error = new Error('Forbiden: not allowed to do this action')
-    error.code = 403
-    error.name = 'FORBIDEN'
-    throw error
-  }
+  await checkPermissions(recipeModel, id, userIdReq, userRole)
   return recipeModel.updateOne(id, recipeObj)
 }
+
+const uploadImage = async (id, recipeObj, userIdReq, userRole) => {
+  await checkPermissions(recipeModel, id, userIdReq, userRole)
+  return recipeModel.updateOne(id, recipeObj)
+}
+
 const deleteRecipe = async (id, userIdReq, userRole) => {
-  const hasChecked = await checkPermissions(
-    recipeModel,
-    id,
-    userIdReq,
-    userRole
-  )
-  if (!hasChecked) {
-    const error = new Error('Forbiden: not allowed to do this action')
-    error.code = 403
-    error.name = 'FORBIDEN'
-    throw error
-  }
+  await checkPermissions(recipeModel, id, userIdReq, userRole)
   return recipeModel.deleteOne(id)
 }
 
@@ -49,5 +33,6 @@ module.exports = {
   getRecipes,
   getRecipe,
   updateRecipe,
-  deleteRecipe
+  deleteRecipe,
+  uploadImage
 }

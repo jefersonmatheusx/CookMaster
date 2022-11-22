@@ -63,11 +63,7 @@ const deleteRecipe = async (req, res) => {
   const { id } = req.params
   const { userId, userRole } = req
   try {
-    const deletedRecipe = await recipeService.deleteRecipe(
-      id,
-      userId,
-      userRole
-    )
+    const deletedRecipe = await recipeService.deleteRecipe(id, userId, userRole)
 
     res.status(StatusCode.NO_CONTENT).json(deletedRecipe)
   } catch (error) {
@@ -77,10 +73,29 @@ const deleteRecipe = async (req, res) => {
   }
 }
 
+const uploadImage = async (req, res) => {
+  const { file } = req
+  const { id } = req.params
+  const { userId, userRole } = req
+
+  try {
+    const newRecipe = await recipeService.uploadImage(
+      id,
+      { imageUrl: `localhost:3000/src/uploads/${file.filename}` },
+      userId,
+      userRole
+    )
+    res.status(StatusCode.OK).json(newRecipe)
+  } catch (error) {
+    res.status(StatusCode.BAD_REQUEST)
+  }
+}
+
 module.exports = {
   createRecipe,
   getRecipes,
   getRecipe,
   updateRecipe,
-  deleteRecipe
+  deleteRecipe,
+  uploadImage
 }

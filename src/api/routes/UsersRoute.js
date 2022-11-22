@@ -1,10 +1,14 @@
 const express = require('express')
-const { createUser, getUser } = require('../controllers/UserController')
-const { credentials } = require('../middlewares')
+const { createUser, createAdmin } = require('../controllers/UserController')
+const {
+  credentials,
+  checkUser,
+  checkAdminPermission
+} = require('../middlewares')
 
 const user = express.Router()
 
-user.post('/', createUser)
-user.get('/:id', credentials, getUser)
+user.post('/', checkUser, createUser)
+user.post('/admin', checkAdminPermission, createAdmin)
 
 module.exports = user
