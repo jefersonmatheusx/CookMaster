@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const { connection } = require('./connection')
 const { UsersRoute, RecipesRoute, LoginRoute } = require('./routes')
+const errMiddleware = require('./middlewares/errMiddleware')
+
 const path = require('path')
 require('dotenv').config()
 
@@ -26,5 +28,6 @@ app.use('/user', UsersRoute)
 app.use('/login', LoginRoute)
 app.use('/recipes', RecipesRoute)
 
+app.use(errMiddleware)
 
 module.exports = app

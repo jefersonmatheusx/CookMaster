@@ -37,8 +37,19 @@ const getUser = async (req, res) => {
 
 const createAdmin = async (req, res) => {
   const user = req.body
-  const result = await userService.createUser({ ...user, role: 'admin' })
-  res.status(StatusCode.CREATED).json({ user: result })
+
+  try {
+    const newUser = await userService.createUser({ ...user, role: 'admin' })
+
+    return res.status(StatusCode.CREATED).json(newUser)
+  } catch (err) {
+    if (err.name === 'MongoServerError' && err.code === 11000) {
+      return res
+        .status(StatusCode.CONFLICT)
+        .json({ msg: 'email already registered' })
+    }
+    return res.status(StatusCode.BAD_REQUEST).json({ msg: err.message })
+  }
 }
 
 module.exports = {
