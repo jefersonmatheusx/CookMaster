@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const { connection } = require('./connection')
+const   connection = require('./connection')
 const { UsersRoute, RecipesRoute, LoginRoute } = require('./routes')
 const errMiddleware = require('./middlewares/errMiddleware')
 
