@@ -1,16 +1,15 @@
 const multer = require('multer')
 const path = require('path')
 
-
-module.exports = {
+const multerConfig = {
   dest: path.resolve(__dirname, '..', '..', 'uploads'),
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, path.resolve(__dirname, '..', '..', 'uploads'))
     },
     filename: (req, file, cb) => {
-       const { id } = req.params
-       cb(null, `${id}.jpeg`)
+      const { id } = req.params
+      cb(null, `${id}.jpeg`)
     }
   }),
   limits: {
@@ -25,3 +24,6 @@ module.exports = {
     }
   }
 }
+
+const multerUploader = multer( multerConfig ).single('image')
+module.exports = multerUploader
