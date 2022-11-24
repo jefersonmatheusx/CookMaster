@@ -11,10 +11,10 @@ const UserSchema = new Schema(
       lowercase: true,
       unique: true,
       required: [true, 'Invalid entries. Try again'],
-      validate: [validateEmail, 'Please fill a valid email address'],
+      validate: [validateEmail, 'Invalid entries. Try again'],
       match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-        'Please fill a valid email address'
+        'Invalid entries. Try again'
       ]
     },
     password: {
