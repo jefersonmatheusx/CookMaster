@@ -1,5 +1,4 @@
 const recipeModel = require('../models/RecipeModel')
-const checkPermissions = require('../utils/checkPermissions')
 const createRecipe = async (obj) => {
   const create = await recipeModel.create(obj)
   return create
@@ -14,17 +13,14 @@ const getRecipe = async (id) => {
 }
 
 const updateRecipe = async (id, recipeObj, userIdReq, userRole) => {
-  await checkPermissions(recipeModel, id, userIdReq, userRole)
   return recipeModel.updateOne(id, recipeObj)
 }
 
 const uploadImage = async (id, recipeObj, userIdReq, userRole) => {
-  await checkPermissions(recipeModel, id, userIdReq, userRole)
   return recipeModel.updateOne(id, recipeObj)
 }
 
 const deleteRecipe = async (id, userIdReq, userRole) => {
-  await checkPermissions(recipeModel, id, userIdReq, userRole)
   return recipeModel.deleteOne(id)
 }
 

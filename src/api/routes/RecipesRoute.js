@@ -1,6 +1,4 @@
 const express = require('express')
-const multer = require('multer')
-const multerConfig = require('../config/multer')
 const {
   createRecipe,
   getRecipes,
@@ -9,20 +7,31 @@ const {
   deleteRecipe,
   uploadImage
 } = require('../controllers/RecipesController')
-const { credentials, checkPermissions } = require('../middlewares')
+
+const { credentials, multer, checkPermissions } = require('../middlewares')
+const checkObjectId = require('../middlewares/checkObjectId')
 
 const Recipes = express.Router()
+const permissions = checkPermissions('recipes')
 
 Recipes.post('/', credentials, createRecipe)
 Recipes.get('/', getRecipes)
-Recipes.get('/:id', getRecipe)
-Recipes.put('/:id', credentials, updateRecipe)
+Recipes.get('/:id', checkObjectId, getRecipe)
+Recipes.delete(
+  '/:id',
+  checkObjectId,
+  credentials,
+  permissions,
+  deleteRecipe
+)
+Recipes.put('/:id', checkObjectId, credentials, permissions, updateRecipe)
 Recipes.put(
   '/:id/image/',
+  checkObjectId,
   credentials,
-  multer(multerConfig).single('image'),
+  permissions,
+  multer,
   uploadImage
 )
-Recipes.delete('/:id', credentials, deleteRecipe)
 
 module.exports = Recipes
