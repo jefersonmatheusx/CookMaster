@@ -5,14 +5,14 @@ const createRecipe = async (req, res) => {
   const { name, ingredients, preparation } = req.body
   const { userId } = req
   try {
-    const newRecipe = await recipeService.createRecipe({
+    const recipe = await recipeService.createRecipe({
       name,
       ingredients,
       preparation,
       userId
     })
 
-    return res.status(StatusCode.CREATED).json(newRecipe)
+    return res.status(StatusCode.CREATED).json({ recipe })
   } catch (err) {
     return res.status(StatusCode.BAD_REQUEST).json({ msg: err.message })
   }
@@ -36,7 +36,8 @@ const getRecipe = async (req, res) => {
     }
     return res.status(StatusCode.OK).json(recipe)
   } catch (err) {
-    return res.status(StatusCode.NOT_FOUND).json({ msg: err.message })
+    console.log(err.message)
+    return res.status(StatusCode.NOT_FOUND).json({ msg: 'recipe not found' })
   }
 }
 const updateRecipe = async (req, res) => {
@@ -79,13 +80,13 @@ const uploadImage = async (req, res) => {
   const { userId, userRole } = req
 
   try {
-    const newRecipe = await recipeService.uploadImage(
+    const recipe = await recipeService.uploadImage(
       id,
       { imageUrl: `localhost:3000/src/uploads/${file.filename}` },
       userId,
       userRole
     )
-    res.status(StatusCode.OK).json(newRecipe)
+    res.status(StatusCode.OK).json(recipe)
   } catch (error) {
     res.status(StatusCode.BAD_REQUEST)
   }
