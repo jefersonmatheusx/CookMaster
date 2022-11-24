@@ -5,14 +5,14 @@ const tokenValidator = (token) => {
     let dataToken
     jwt.verify(token, secret, (err, decodedToken) => {
       if (err) {
-        throw new Error({ message: 'jwt malformed' })
+        throw new Error('jwt malformed')
       } else {
         dataToken = decodedToken
       }
     })
     return dataToken
   } catch (err) {
-    throw new Error({ msg: 'Invalid Token' })
+    throw new Error('Invalid Token')
   }
 }
 

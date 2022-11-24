@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
   const token = authHeader && authHeader.split(' ')[1]
 
   if (!token)
-    return next({
+    next({
       status: StatusCode.INVALID_FIELD,
       message: 'Missing auth token!'
     })
@@ -16,6 +16,6 @@ module.exports = (req, res, next) => {
     req.userRole = decodedToken.role
     next()
   } catch (error) {
-    return next({ message: 'jwt malformed', status: StatusCode.INVALID_FIELD })
+    next({ message: 'jwt malformed', status: StatusCode.INVALID_FIELD })
   }
 }

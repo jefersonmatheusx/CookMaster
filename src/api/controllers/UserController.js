@@ -4,14 +4,14 @@ const StatusCode = require('../utils/StatusCode')
 const createUser = async (req, res) => {
   const { name, email, password } = req.body
   try {
-    const newUser = await userService.createUser({
+    const user = await userService.createUser({
       name,
       email,
       password,
       role: 'user'
     })
 
-    return res.status(StatusCode.CREATED).json(newUser)
+    return res.status(StatusCode.CREATED).json({user})
   } catch (err) {
     if (err.name === 'MongoServerError' && err.code === 11000) {
       return res
@@ -39,9 +39,9 @@ const createAdmin = async (req, res) => {
   const user = req.body
 
   try {
-    const newUser = await userService.createUser({ ...user, role: 'admin' })
+    const user = await userService.createUser({ ...user, role: 'admin' })
 
-    return res.status(StatusCode.CREATED).json(newUser)
+    return res.status(StatusCode.CREATED).json({user})
   } catch (err) {
     if (err.name === 'MongoServerError' && err.code === 11000) {
       return res
