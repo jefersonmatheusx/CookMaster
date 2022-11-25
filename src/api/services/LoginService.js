@@ -1,5 +1,5 @@
 const usersModel = require('../models/UsersModel')
-const {validateEmail} = require('../validation/validateEmail')
+const { validateEmail } = require('../validation/validateEmail')
 const generateToken = require('../utils/GenerateToken')
 
 const login = async (user) => {
@@ -11,7 +11,7 @@ const login = async (user) => {
 	const existingUser = await usersModel.getOne({ email: user.email })
 
 	if (!existingUser) {
-		throw new Error('User not found')
+		throw new Error('Incorrect username or password')
 	}
 	const checkPassword = user.password == existingUser.password
 	if (!checkPassword) {

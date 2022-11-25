@@ -10,7 +10,7 @@ const app = express()
 app.use(express.json())
 
 const startServer = () => {
-	connection(process.env.MONGO_DB_URL)
+	connection()
 }
 startServer()
 
@@ -22,7 +22,7 @@ app.get('/', (request, response) => {
 
 app.use('/images', express.static(path.join(__dirname, '..', 'uploads')))
 
-app.use('/user', UsersRoute)
+app.use('/users', UsersRoute)
 app.use('/login', LoginRoute)
 app.use('/recipes', RecipesRoute)
 

@@ -4,7 +4,7 @@ const RecipeSchema = new Schema({
 	name: { type: String, required: [true, 'Invalid entries. Try again'] },
 	ingredients: { type: String, required: [true, 'Invalid entries. Try again'] },
 	preparation: { type: String, required: [true, 'Invalid entries. Try again'] },
-	imageUrl: String,
+	image: String,
 	userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 })
 

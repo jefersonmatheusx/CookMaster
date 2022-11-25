@@ -1,14 +1,9 @@
 const User = require('../schemas/UserSchema')
 
 const create = async (user) => {
-	const userResponse = await User.create(user)
+	const dataUser = await User.create(user)
+	const userResponse = await getById(dataUser._id)
 	return userResponse
-}
-
-const getUsers = async () => {
-	const users = await User.find({}, { _id: 0 })
-
-	return { utxos: users }
 }
 
 const getOne = async (obj) => {
@@ -24,6 +19,5 @@ const getById = async (id) => {
 module.exports = {
 	create,
 	getOne,
-	getUsers,
 	getById,
 }

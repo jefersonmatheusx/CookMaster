@@ -2,19 +2,14 @@ const recipeService = require('../services/RecipeService')
 const StatusCode = require('../utils/StatusCode')
 
 const createRecipe = async (req, res) => {
-	const { name, ingredients, preparation } = req.body
-	const { userId } = req
+	const recipe = req.body
+	recipe.userId = req.userId
 	try {
-		const recipe = await recipeService.createRecipe({
-			name,
-			ingredients,
-			preparation,
-			userId,
-		})
+		const recipeCreated = await recipeService.createRecipe(recipe)
 
-		return res.status(StatusCode.CREATED).json({ recipe })
+		return res.status(StatusCode.CREATED).json({ recipe:recipeCreated })
 	} catch (err) {
-		return res.status(StatusCode.BAD_REQUEST).json({ msg: err.message })
+		return res.status(StatusCode.BAD_REQUEST).json({ message: err.message })
 	}
 }
 
@@ -23,7 +18,7 @@ const getRecipes = async (req, res) => {
 		const recipes = await recipeService.getRecipes()
 		return res.status(200).json(recipes)
 	} catch (err) {
-		return res.status(StatusCode.NOT_FOUND).json({ msg: err.message })
+		return res.status(StatusCode.NOT_FOUND).json({ message: err.message })
 	}
 }
 
@@ -37,7 +32,7 @@ const getRecipe = async (req, res) => {
 		return res.status(StatusCode.OK).json(recipe)
 	} catch (err) {
 		console.log(err.message)
-		return res.status(StatusCode.NOT_FOUND).json({ msg: 'recipe not found' })
+		return res.status(StatusCode.NOT_FOUND).json({ message: 'recipe not found' })
 	}
 }
 const updateRecipe = async (req, res) => {
@@ -56,7 +51,7 @@ const updateRecipe = async (req, res) => {
 	} catch (error) {
 		res
 			.status(error.code || StatusCode.INVALID_FIELD)
-			.json({ msg: error.message })
+			.json({ message: error.message })
 	}
 }
 
@@ -70,7 +65,7 @@ const deleteRecipe = async (req, res) => {
 	} catch (error) {
 		res
 			.status(error.code || StatusCode.INVALID_FIELD)
-			.json({ msg: error.message })
+			.json({ message: error.message })
 	}
 }
 
@@ -82,7 +77,7 @@ const uploadImage = async (req, res) => {
 	try {
 		const recipe = await recipeService.uploadImage(
 			id,
-			{ imageUrl: `localhost:3000/src/uploads/${file.filename}` },
+			{ image: `localhost:3000/src/uploads/${file.filename}` },
 			userId,
 			userRole
 		)

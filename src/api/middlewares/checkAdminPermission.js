@@ -1,13 +1,12 @@
 const { tokenValidator } = require('../validation/tokenValidator')
 const StatusCode = require('../utils/StatusCode')
 const checkAdminPermission = async (req, res, next) => {
-	const authHeader = req.headers['authorization']
-	const token = authHeader && authHeader.split(' ')[1]
+	const token = req.headers['authorization']
 
 	if (!token)
 		return next({
 			status: StatusCode.INVALID_FIELD,
-			message: 'Missing auth token!',
+			message: 'missing auth token',
 		})
 
 	try {

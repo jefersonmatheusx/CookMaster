@@ -6,7 +6,7 @@ const userLogin = async (req, res) => {
 	if (!email || !password) {
 		return res
 			.status(StatusCode.INVALID_FIELD)
-			.json({ msg: 'All fields must be filled' })
+			.json({ message: 'All fields must be filled' })
 	}
 
 	try {
@@ -16,7 +16,7 @@ const userLogin = async (req, res) => {
 		})
 		return res.status(StatusCode.OK).json({ token })
 	} catch (err) {
-		return res.status(StatusCode.INVALID_FIELD).json({ msg: err.message })
+		return res.status(StatusCode.INVALID_FIELD).json({ message: err.message })
 	}
 }
 

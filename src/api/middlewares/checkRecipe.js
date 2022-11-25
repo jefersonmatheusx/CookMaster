@@ -1,11 +1,9 @@
-const { validateEmail } = require('../validation/validateEmail')
 const statusCode = require('../utils/StatusCode')
 
 const checkUser = (req, res, next) => {
-	const user = req.body
-	const validEmail = validateEmail(user.email)
+	const recipe = req.body
 
-	if (!user || !user.name || !user.password || !user.email || !validEmail) {
+	if (!recipe || !recipe.name || !recipe.ingredients || !recipe.preparation) {
 		return next({
 			message: 'Invalid entries. Try again.',
 			status: statusCode.BAD_REQUEST,

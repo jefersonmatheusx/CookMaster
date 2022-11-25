@@ -1,13 +1,12 @@
 const StatusCode = require('../utils/StatusCode')
 const { tokenValidator } = require('../validation/tokenValidator')
 module.exports = (req, res, next) => {
-	const authHeader = req.headers['authorization']
-	const token = authHeader && authHeader.split(' ')[1]
+	const token = req.headers['authorization']
 
 	if (!token)
 		next({
 			status: StatusCode.INVALID_FIELD,
-			message: 'Missing auth token!',
+			message: 'missing auth token',
 		})
 
 	try {
