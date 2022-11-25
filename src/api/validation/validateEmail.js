@@ -1,4 +1,8 @@
-module.exports = (email) => {
-  const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-  return re.test(email)
+const emailFormat = /^\w+([.-]?\w+)*@\w+([s.-]?\w+)*(\.\w{2,3})+$/
+const validateEmail = (email) => {
+	return emailFormat.test(email)
+}
+module.exports = {
+	validateEmail,
+	emailFormat,
 }

@@ -4,8 +4,6 @@ Aqui você vai encontrar os detalhes de como desenvolver seu projeto a partir de
 
 ---
 
-
-
 # Sumário
 
 - [Boas vindas ao processo seletivo para o Time de Instrução de Back-End!](#boas-vindas-ao-processo-seletivo-para-o-time-de-instrução-de-back-end)
@@ -53,7 +51,7 @@ O projeto já contém testes e linters configurados. É essencial que **você ob
 
 ### Linter
 
-Para garantir a qualidade do código, vamos utilizar neste projeto o linter ESLint. Assim o código estará alinhado com as boas práticas de desenvolvimento, sendo mais legível e de fácil manutenção! Para rodar o *linter* localmente no projeto, execute o comando abaixo:
+Para garantir a qualidade do código, vamos utilizar neste projeto o linter ESLint. Assim o código estará alinhado com as boas práticas de desenvolvimento, sendo mais legível e de fácil manutenção! Para rodar o _linter_ localmente no projeto, execute o comando abaixo:
 
 - `npm run lint`
 
@@ -80,31 +78,31 @@ Deverá ser possível adicionar uma imagem à uma receita, utilizando o upload d
   ```js
   // ./src/api/app.js
 
-  const path = require('path');
+  const path = require('path')
   // ...
 
   // /images é o caminho/end-point da API onde as imagens estarão disponíveis
   // path.join(__dirname, '..', 'uploads') é o caminho da pasta onde o multer deve salvar suas imagens ao realizar o upload
   // a pasta `uploads` está em `./src/uploads` e não deve ser renomeada ou removida (assim como o arquivo `ratinho.jpg`)
-  app.use('/images', express.static(path.join(__dirname, '..', 'uploads')));
+  app.use('/images', express.static(path.join(__dirname, '..', 'uploads')))
 
   // ...
   ```
 
 ---
 
-
 # Instruções de início
 
 ## Antes de começar a desenvolver
 
 1. Após clonar e acessar o repositório, instale as dependências e inicialize o projeto
-  * Instale as dependências:
-    * `npm install`
-  * Inicialize o projeto:
-    * `npm start` (uma nova página deve abrir no seu navegador com um texto simples)
-  * Verifique que os testes estão executando:
-    * `npm test` (os testes devem rodar e falhar)
+
+- Instale as dependências:
+  - `npm install`
+- Inicialize o projeto:
+  - `npm start` (uma nova página deve abrir no seu navegador com um texto simples)
+- Verifique que os testes estão executando:
+  - `npm test` (os testes devem rodar e falhar)
 
 2. Crie uma branch a partir da branch `master` e mãos à obra!
 
@@ -112,9 +110,9 @@ Deverá ser possível adicionar uma imagem à uma receita, utilizando o upload d
 
 ## Durante o desenvolvimento
 
-* Faça `commits` **bem estruturados** das alterações que você fizer no código regularmente
+- Faça `commits` **bem estruturados** das alterações que você fizer no código regularmente
 
-* Lembre-se de sempre após um (ou alguns) `commits` atualizar o repositório remoto
+- Lembre-se de sempre após um (ou alguns) `commits` atualizar o repositório remoto
 
 ---
 
@@ -124,10 +122,10 @@ Deverá ser possível adicionar uma imagem à uma receita, utilizando o upload d
 
 **👀 Observações importantes:**
 
- - O projeto deve rodar na porta **3000**;
- - A testagem local depende da API estar rodando (utilize `npm run dev` para facilitar o processo);
+- O projeto deve rodar na porta **3000**;
+- A testagem local depende da API estar rodando (utilize `npm run dev` para facilitar o processo);
 
-##  Todos os seus endpoints devem estar no padrão REST
+## Todos os seus endpoints devem estar no padrão REST
 
 - Use os verbos HTTP adequados para cada operação.
 
@@ -145,9 +143,10 @@ Em `app.js` o seguinte trecho de código não deve ser removido:
 
 ```javascript
 app.get('/', (request, response) => {
-  response.send();
-});
+  response.send()
+})
 ```
+
 Isso está configurado para o avaliador funcionar corretamente.
 
 ## Conexão com o Banco
@@ -158,10 +157,13 @@ O avaliador não consegue ler as informações que estão no local (localhost).
 Portanto, para realizar a conexão com o banco, utilize os seguintes parâmetros:
 
 ```javascript
-require('dotenv').config();
-const MONGO_DB_URL = `mongodb://${process.env.HOST || 'mongodb'}:27017/Cookmaster`;
-const DB_NAME = 'Cookmaster';
+require('dotenv').config()
+const MONGO_DB_URL = `mongodb://${
+  process.env.HOST || 'mongodb'
+}:27017/Cookmaster`
+const DB_NAME = 'Cookmaster'
 ```
+
 Além disso, **renomeie o arquivo `.env.dev` para `.env`**.
 
 Com essas configurações, enquanto estiver na máquina local, o banco será executado normalmente via localhost (possibilitando os testes via `npm test`).
@@ -176,7 +178,12 @@ A coleção de usuários deverá ter o seguinte nome: `users`.
 Os campos da coleção `users` terão este formato:
 
 ```json
-{ "name" : "Erick Jacquin", "email" : "erickjacquin@gmail.com", "password" : "12345678", "role" : "user" }
+{
+  "name": "Erick Jacquin",
+  "email": "erickjacquin@gmail.com",
+  "password": "12345678",
+  "role": "user"
+}
 ```
 
 A resposta do insert para ser retornada após a criação é esta:
@@ -185,14 +192,18 @@ A resposta do insert para ser retornada após a criação é esta:
 { "_id" : ObjectId("5f46914677df66035f61a355"), "name" : "Erick Jacquin", "email" : "erickjacquin@gmail.com", "password" : "12345678", "role" : "user" }
 ```
 
-(O _id será gerado automaticamente pelo mongodb)
+(O \_id será gerado automaticamente pelo mongodb)
 
 A coleção de receitas deverá ter o seguinte nome: `recipes`.
 
 Os campos da coleção `recipes` terão este formato:
 
 ```json
-{ "name" : "Receita do Jacquin", "ingredients" : "Frango", "preparation" : "10 minutos no forno" }
+{
+  "name": "Receita do Jacquin",
+  "ingredients": "Frango",
+  "preparation": "10 minutos no forno"
+}
 ```
 
 A resposta do insert para ser retornada após a criação é esta:
@@ -200,7 +211,8 @@ A resposta do insert para ser retornada após a criação é esta:
 ```json
 { "_id" : ObjectId("5f46919477df66035f61a356"), "name" : "string", "ingredients" : "string", "preparation" : "string", "userId" : ObjectId("5f46914677df66035f61a355") }
 ```
-(O _id será gerado automaticamente pelo mongodb, e o userId será gerado com o id do usuário que criou a receita)
+
+(O \_id será gerado automaticamente pelo mongodb, e o userId será gerado com o id do usuário que criou a receita)
 
 ## Linter
 
@@ -213,7 +225,6 @@ Para poder rodar o `ESLint` em um projeto basta executar o comando `npm install`
 ⚠ PULL REQUEST COM ISSUES DE LINTER NÃO SERÁ AVALIADA. ATENTE-SE PARA RESOLVÊ-LOS ANTES DE FINALIZAR O DESENVOLVIMENTO! ⚠
 
 Você pode também instalar o plugin do `ESLint` no `VSCode`, bastar ir em extensions e baixar o [plugin `ESLint`](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint).
-
 
 ## Testes
 
@@ -252,6 +263,7 @@ Para executar os testes localmente, digite no terminal o comando `npm test`.
     "password": "string"
   }
   ```
+
 - Não use `bcrypt` ou outra biblioteca para encriptar a senha, para que o avaliador funcione corretamente.
 
 **Além disso, as seguintes verificações serão feitas:**

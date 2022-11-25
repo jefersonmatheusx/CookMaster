@@ -1,11 +1,11 @@
 const checkUser = (req, res, next) => {
-  const user = req.body
+	const user = req.body
 
-  if (!user || !user.name || !user.password || !user.email) {
-    return next({ message: 'Invalid entries. Try again.', status: 400 })
-  }
+	if (!user || !user.name || !user.password || !user.email) {
+		return next({ message: 'Invalid entries. Try again.', status: 400 })
+	}
 
-  return next()
+	return next()
 }
 
 module.exports = checkUser

@@ -1,10 +1,6 @@
 const express = require('express')
 const { createUser, createAdmin } = require('../controllers/UserController')
-const {
-  credentials,
-  checkUser,
-  checkAdminPermission
-} = require('../middlewares')
+const { checkUser, checkAdminPermission } = require('../middlewares')
 
 const user = express.Router()
 
