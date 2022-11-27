@@ -20,11 +20,10 @@ app.get('/', (request, response) => {
 })
 // Não remover esse end-point, ele é necessário para o avaliador
 
-app.use('/images', express.static(path.join(__dirname, '..', 'uploads')))
-
 app.use('/users', UsersRoute)
 app.use('/login', LoginRoute)
 app.use('/recipes', RecipesRoute)
+app.use('/images', express.static(path.join(__dirname, '..', 'uploads')))
 
 app.use(errMiddleware)
 

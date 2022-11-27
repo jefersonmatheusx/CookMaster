@@ -1,12 +1,10 @@
 const loginService = require('../services/LoginService')
-const StatusCode = require('../utils/StatusCode')
+const { statusCode } = require('../utils/statusCode')
 
 const userLogin = async (req, res) => {
 	const { email, password } = req.body
 	if (!email || !password) {
-		return res
-			.status(StatusCode.INVALID_FIELD)
-			.json({ message: 'All fields must be filled' })
+		return res.status(statusCode.INVALID_FIELD).json({ message: 'All fields must be filled' })
 	}
 
 	try {
@@ -14,9 +12,9 @@ const userLogin = async (req, res) => {
 			email,
 			password,
 		})
-		return res.status(StatusCode.OK).json({ token })
+		return res.status(statusCode.OK).json({ token })
 	} catch (err) {
-		return res.status(StatusCode.INVALID_FIELD).json({ message: err.message })
+		return res.status(statusCode.INVALID_FIELD).json({ message: err.message })
 	}
 }
 

@@ -1,5 +1,5 @@
 const userService = require('../services/UserService')
-const StatusCode = require('../utils/StatusCode')
+const { statusCode } = require('../utils/statusCode')
 
 const createUser = async (req, res) => {
 	const { name, email, password } = req.body
@@ -11,14 +11,12 @@ const createUser = async (req, res) => {
 			role: 'user',
 		})
 
-		return res.status(StatusCode.CREATED).json({ user })
+		return res.status(statusCode.CREATED).json({ user })
 	} catch (err) {
 		if (err.name === 'MongoServerError' && err.code === 11000) {
-			return res
-				.status(StatusCode.CONFLICT)
-				.json({ message: 'Email already registered' })
+			return res.status(statusCode.CONFLICT).json({ message: 'Email already registered' })
 		}
-		return res.status(StatusCode.BAD_REQUEST).json({ message: err.message })
+		return res.status(statusCode.BAD_REQUEST).json({ message: err.message })
 	}
 }
 
@@ -29,9 +27,9 @@ const getUser = async (req, res) => {
 		if (!user) {
 			throw new Error('Incorrect username or password')
 		}
-		return res.status(StatusCode.OK).json({ user })
+		return res.status(statusCode.OK).json({ user })
 	} catch (err) {
-		return res.status(StatusCode.NOT_FOUND).json({ message: err.message })
+		return res.status(statusCode.NOT_FOUND).json({ message: err.message })
 	}
 }
 
@@ -41,14 +39,12 @@ const createAdmin = async (req, res) => {
 	try {
 		const newUser = await userService.createUser({ ...user, role: 'admin' })
 
-		return res.status(StatusCode.CREATED).json({ user:newUser })
+		return res.status(statusCode.CREATED).json({ user: newUser })
 	} catch (err) {
 		if (err.name === 'MongoServerError' && err.code === 11000) {
-			return res
-				.status(StatusCode.CONFLICT)
-				.json({ message: 'Email already registered' })
+			return res.status(statusCode.CONFLICT).json({ message: 'Email already registered' })
 		}
-		return res.status(StatusCode.BAD_REQUEST).json({ message: err.message })
+		return res.status(statusCode.BAD_REQUEST).json({ message: err.message })
 	}
 }
 

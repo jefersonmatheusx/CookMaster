@@ -1,10 +1,10 @@
 const { validateEmail } = require('../validation/validateEmail')
-const statusCode = require('../utils/StatusCode')
+const { statusCode } = require('../utils/statusCode')
 module.exports = (req, res, next) => {
 	const { email } = req.body
 	const validEmail = validateEmail(email)
 	if (!validEmail) {
-		next({
+		return next({
 			status: statusCode.BAD_REQUEST,
 			message: 'Invalid entries. Try again',
 		})

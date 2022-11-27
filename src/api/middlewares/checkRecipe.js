@@ -1,4 +1,4 @@
-const statusCode = require('../utils/StatusCode')
+const { statusCode } = require('../utils/statusCode')
 
 const checkUser = (req, res, next) => {
 	const recipe = req.body

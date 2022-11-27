@@ -1,4 +1,4 @@
-const StatusCode = {
+const statusCode = {
 	OK: 200,
 	CREATED: 201,
 	NO_CONTENT: 204,
@@ -10,4 +10,31 @@ const StatusCode = {
 	FORBIDEN: 403,
 }
 
-module.exports = StatusCode
+const usersMessages = {
+	emailNotUnic: 'Email already registered',
+	invalidEntries: 'Invalid entries. Try again.',
+	onlyAdmin: 'Only admins can register new admins',
+	forbiden: 'Forbiden: action not allowed',
+}
+
+const loginMessages = {
+	invalidData: 'All fields must be filled',
+	incorretLogin: 'Incorrect username or password',
+}
+
+const authMessages = {
+	jwt: 'jwt malformed',
+	missingToken: 'missing auth token',
+}
+
+const recipesMessages = {
+	notFound: 'data not found',
+}
+
+module.exports = {
+	statusCode,
+	usersMessages,
+	loginMessages,
+	authMessages,
+	recipesMessages,
+}

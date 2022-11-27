@@ -1,11 +1,11 @@
-const StatusCode = require('../utils/StatusCode')
+const { statusCode } = require('../utils/statusCode')
 const { tokenValidator } = require('../validation/tokenValidator')
 module.exports = (req, res, next) => {
 	const token = req.headers['authorization']
 
 	if (!token)
-		next({
-			status: StatusCode.INVALID_FIELD,
+		return next({
+			status: statusCode.INVALID_FIELD,
 			message: 'missing auth token',
 		})
 
@@ -15,6 +15,6 @@ module.exports = (req, res, next) => {
 		req.userRole = decodedToken.role
 		next()
 	} catch (error) {
-		next({ message: 'jwt malformed', status: StatusCode.INVALID_FIELD })
+		return next({ message: 'jwt malformed', status: statusCode.INVALID_FIELD })
 	}
 }

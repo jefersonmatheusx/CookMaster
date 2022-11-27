@@ -13,6 +13,9 @@ const getRecipe = async (id) => {
 }
 
 const updateRecipe = async (id, recipeObj) => {
+	if (!Object.keys(recipeObj).length) {
+		throw new Error('Invalid entries. Try again.')
+	}
 	return recipeModel.updateOne(id, recipeObj)
 }
 

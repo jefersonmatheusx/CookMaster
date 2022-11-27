@@ -9,7 +9,6 @@ const {
 } = require('../controllers/RecipesController')
 
 const { credentials, multer, checkPermissions, checkRecipe } = require('../middlewares')
-const checkObjectId = require('../middlewares/checkObjectId')
 
 const Recipes = express.Router()
 const permissions = checkPermissions('recipes')
@@ -17,11 +16,10 @@ const permissions = checkPermissions('recipes')
 Recipes.post('/', credentials,checkRecipe, createRecipe)
 Recipes.get('/', getRecipes)
 Recipes.get('/:id', getRecipe)
-Recipes.delete('/:id', checkObjectId, credentials, permissions, deleteRecipe)
-Recipes.put('/:id', checkObjectId, credentials, permissions, updateRecipe)
+Recipes.delete('/:id',  credentials, permissions, deleteRecipe)
+Recipes.put('/:id',  credentials, permissions, updateRecipe)
 Recipes.put(
 	'/:id/image/',
-	checkObjectId,
 	credentials,
 	permissions,
 	multer,
