@@ -1,5 +1,5 @@
 const recipeService = require('../services/RecipeService')
-const { statusCode } = require('../utils/statusCode')
+const { statusCode } = require('../utils/StatusCode')
 
 const createRecipe = async (req, res) => {
 	const recipe = req.body
@@ -65,7 +65,12 @@ const uploadImage = async (req, res) => {
 	const { userId, userRole } = req
 
 	try {
-		const recipe = await recipeService.uploadImage(id, { image: `localhost:3000/src/uploads/${file.filename}` }, userId, userRole)
+		const recipe = await recipeService.uploadImage(
+			id,
+			{ image: `localhost:3000/src/uploads/${file.filename}` },
+			userId,
+			userRole,
+		)
 		res.status(statusCode.OK).json(recipe)
 	} catch (error) {
 		res.status(statusCode.BAD_REQUEST)

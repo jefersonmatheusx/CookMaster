@@ -1,5 +1,6 @@
-const jwt = require('jsonwebToken')
+const jwt = require('jsonwebtoken')
 const secret = require('../utils/secret')
+
 const tokenValidator = (token) => {
 	let dataToken
 	jwt.verify(token, secret, (err, decodedToken) => {

@@ -1,17 +1,21 @@
 const { validateEmail } = require('../validation/validateEmail')
-const { statusCode } = require('../utils/statusCode')
+const { statusCode } = require('../utils/StatusCode')
+
+const dataError = {
+	message: 'Invalid entries. Try again.',
+	status: statusCode.BAD_REQUEST,
+}
 
 const checkUser = (req, res, next) => {
 	const user = req.body
-	const validEmail = validateEmail(user.email)
 
-	if (!user || !user.name || !user.password || !user.email || !validEmail) {
-		return next({
-			message: 'Invalid entries. Try again.',
-			status: statusCode.BAD_REQUEST,
-		})
+	if (!user.name || !user.password || !user.email) {
+		return next(dataError)
 	}
-
+	const validEmail = validateEmail(user.email)
+	if (!validEmail) {
+		return next(dataError)
+	}
 	return next()
 }
 

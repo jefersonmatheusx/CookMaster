@@ -1,5 +1,5 @@
 const loginService = require('../services/LoginService')
-const { statusCode } = require('../utils/statusCode')
+const { statusCode } = require('../utils/StatusCode')
 
 const userLogin = async (req, res) => {
 	const { email, password } = req.body

@@ -21,19 +21,16 @@ const getById = async (id) => {
 	return recipe
 }
 
-const updateOne = async (id, obj) => {
-	return Recipe.findOneAndUpdate(
+const updateOne = async (id, obj) =>
+	Recipe.findOneAndUpdate(
 		{ _id: id },
 		{ $set: obj },
 		{
 			new: true,
-		}
+		},
 	)
-}
 
-const deleteOne = async (id) => {
-	return Recipe.deleteOne({ _id: id })
-}
+const deleteOne = async (id) => Recipe.deleteOne({ _id: id })
 
 module.exports = {
 	create,

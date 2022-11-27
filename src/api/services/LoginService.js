@@ -13,7 +13,7 @@ const login = async (user) => {
 	if (!existingUser) {
 		throw new Error('Incorrect username or password')
 	}
-	const checkPassword = user.password == existingUser.password
+	const checkPassword = user.password === existingUser.password
 	if (!checkPassword) {
 		throw new Error('Incorrect username or password')
 	}

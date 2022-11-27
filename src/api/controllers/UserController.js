@@ -1,5 +1,5 @@
 const userService = require('../services/UserService')
-const { statusCode } = require('../utils/statusCode')
+const { statusCode } = require('../utils/StatusCode')
 
 const createUser = async (req, res) => {
 	const { name, email, password } = req.body

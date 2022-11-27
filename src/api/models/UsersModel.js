@@ -1,11 +1,5 @@
 const User = require('../schemas/UserSchema')
 
-const create = async (user) => {
-	const dataUser = await User.create(user)
-	const userResponse = await getById(dataUser._id)
-	return userResponse
-}
-
 const getOne = async (obj) => {
 	const user = await User.findOne(obj)
 	return user
@@ -16,6 +10,11 @@ const getById = async (id) => {
 	return user
 }
 
+const create = async (user) => {
+	const dataUser = await User.create(user)
+	const userResponse = await getById(dataUser._id)
+	return userResponse
+}
 module.exports = {
 	create,
 	getOne,

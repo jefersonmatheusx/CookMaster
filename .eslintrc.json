@@ -1,18 +1,24 @@
 {
+	"extends": "trybe-backend",
 	"env": {
 		"node": true,
 		"commonjs": true,
 		"es2021": true
 	},
-	"extends": "eslint:recommended",
+	"globals": {
+		"db": "writable"
+	},
 	"overrides": [],
 	"parserOptions": {
 		"ecmaVersion": "latest"
 	},
 	"rules": {
-		"indent": ["error", "tab"],
+		"indent": [2, "tab"],
+		"sonarjs/no-duplicate-string": ["error", 5],
+		"no-underscore-dangle": "off",
 		"linebreak-style": ["error", "unix"],
 		"quotes": ["error", "single"],
-		"semi": ["error", "never"]
+		"semi": ["error", "never"],
+		"no-tabs": ["error", { "allowIndentationTabs": true }]
 	}
 }
