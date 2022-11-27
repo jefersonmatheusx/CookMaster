@@ -5,13 +5,18 @@ const newUser = {
 }
 
 const otherUser = {
-	name: 'Conceição',
-	email: 'conceicao@email.com',
+	name: 'Marcia',
+	email: 'marcinha@email.com',
 	password: '111213',
 }
 
 const otherUserLogin = {
-	email: 'conceicao@email.com',
+	email: 'marcinha@email.com',
+	password: '111213',
+}
+const awkwardEmailUser = {
+	email: '__@awkwardemail',
+	name:'awkwardUser',
 	password: '111213',
 }
 
@@ -95,4 +100,5 @@ module.exports = {
 	newAdmin,
 	otherUser,
 	otherUserLogin,
+	awkwardEmailUser,
 }

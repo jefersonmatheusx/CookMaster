@@ -2,7 +2,7 @@ const { MongoClient } = require('mongodb')
 const chai = require('chai')
 const server = require('../api/app')
 const { statusCode, usersMessages } = require('../api/utils/StatusCode')
-const { newUser, userWithoutEmail, userWithoutName, userWithoutPassW } = require('./helpersObjects')
+const { newUser, userWithoutEmail, awkwardEmailUser, userWithoutName, userWithoutPassW } = require('./helpersObjects')
 const chaiHttp = require('chai-http')
 chai.use(chaiHttp)
 const { expect } = chai
@@ -102,6 +102,23 @@ describe('Valida a rota post /users', () => {
 			})
 
 			it('Retorna status 400 se o body não possui email', (done) => {
+				expect(response).to.have.status(statusCode.BAD_REQUEST)
+				done()
+			})
+			it('Retorna propriedade message com mensagem "Invalid entries. Try again."', (done) => {
+				expect(response.body).to.have.property('message')
+				expect(response.body.message).to.be.equal(usersMessages.invalidEntries)
+				done()
+			})
+		})
+		describe('Valida o formato do email', () => {
+			let response
+
+			before(async () => {
+				response = await chai.request(server).post('/users').send(awkwardEmailUser)
+			})
+
+			it('Retorna status 400 se o body email não está correto ', (done) => {
 				expect(response).to.have.status(statusCode.BAD_REQUEST)
 				done()
 			})

@@ -1,4 +1,4 @@
-const Recipe = require('../schemas/recipeSchema')
+const Recipe = require('../schemas/RecipeSchema')
 
 const create = async (recipe) => {
 	const recipeResponse = await Recipe.create(recipe)
